@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files  
+*********************************************************************
+EM PRODUÇÃO É NECESSÁRIO FAZER OS IMPORTS DOS ARQUIVOS CSS NA ORDEM CORRETA CONFORME EXEMPLO ABAIXO
+DEVE COMPILAR COM COMANDO NG BUILD
+OS ARQUIVOS ESTÃO NO ARQUIVO ANGULAR.JSON TAG<STYLES>
+
+DEPOIS DE EFETUAR O COMANDO NG, COPIAR OS ARQUIVOS CRIADOS NA PASTA
+C:\Users\App\source\repos\App.Order\App.Order.SPA\ClientApp\dist 
+PARA A PASTA
+X:\ClientApp\dist (\\192.168.0.52)
+**************************************************/
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~cd-themify-icons/index.css";
+@import "~animate.css/animate.min.css";
+@import "~morris.js/morris.css";
+@import "assets/css/main.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+/*
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/cd-themify-icons/index.css",
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/morris.js/morris.css",
+              "src/assets/css/main.css",
+
+*/
+.btn {
+    cursor: pointer;
+}
+
