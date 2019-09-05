@@ -1,0 +1,32 @@
+@media screen and (max-width: 600px) {
+    .cabecalho{
+        font-size: 12px;
+    } 
+    .colToTelefone{
+        font-size: 12px;
+    } 
+    .colDescricao{
+        font-size: 12px;
+    } 
+    .colDepartamento{
+        font-size: 12px;
+        display:none;
+    } 
+    .colDDD{
+        font-size: 12px;
+    } 
+	.colTelefone{
+        font-size: 12px;
+    }
+	.colRamal{
+        font-size: 12px;
+        display:none;
+    }
+	.colEmail{
+        font-size: 12px;
+        display:none;
+    }
+	.colExcluir{
+        font-size: 12px;
+    }
+}

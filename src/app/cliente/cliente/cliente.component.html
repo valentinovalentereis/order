@@ -1,0 +1,150 @@
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up">
+
+  <!--
+  <div [hidden]="!debug">
+    {{model | json }}
+  </div> -->
+  <div class="alert alert-danger" role="alert" *ngIf="erros.length > 0">
+    <ul>
+        <li *ngFor="let erro of erros">
+            {{ erros }}
+        </li>
+    </ul>
+</div>
+
+  <div>
+    <!-- END PAGE CONTENT-->
+    <div class="ibox">
+      <div class="ibox-head">
+        <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-user-plus"></i> Cadastro de Clientes</h4>
+      </div>
+      <div class="ibox-body">
+        <form #clienteForm="ngForm">
+
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="inputPessoa">Pessoa</label>
+              <select id="inputPessoa" #inputPessoa name="inputPessoa" class="form-control" [(ngModel)]="model.tpPessoa"
+                (change)="pesssoaModelChange($event)" required>
+                <option *ngFor="let p of tpPessoas" [value]="p.id">{{p.nome}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputRazaoSocial">{{model.tpPessoa==1? "Razão Social" :"Nome"}}</label><span>*</span>
+              <input id="inputRazaoSocial" name="inputRazaoSocial" type="text" class="form-control" [placeholder]="model.tpPessoa==1? 'Razão Social' :'Nome'"
+                [(ngModel)]="model.razaoSocial" required [maxlength]="70">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputFantasia">{{model.tpPessoa==1? "Fantasia" :"Apelido"}}</label>
+              <input id="inputFantasia" name="inputFantasia" type="text" class="form-control" [placeholder]="model.tpPessoa==1? 'Fantasia' :'Apelido'"
+                [(ngModel)]="model.fantasia" [maxlength]="70">
+            </div>
+          </div>
+
+          <!-- Inicio Collapse Documentos -->
+          <div id="collapseDocumento">
+            <a data-toggle="collapse" href="#documentos">
+              <!--<p class="h5 m-t-15">Documentos</p>-->
+              <h5 class="text-info m-b-5 m-t-5"><i class="fa fa-drivers-license-o"></i> Documentos</h5>
+            </a>
+            <div id="documentos" class="collapse multi-collapse ">
+              <div [ngClass]="{'hidden': model.tpPessoa == 1}" class="fade-in-up">
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <label for="RG">RG</label>
+                    <input type="text" id="inputRG" name="inputRG" class="form-control" placeholder="RG" [(ngModel)]="model.rg">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="CPF">CPF</label>
+                    <input type="text" id="inputCPF" name="inputCPF" class="form-control" placeholder="CPF" [(ngModel)]="model.cpf" mask="000.000.000-00" [dropSpecialCharacters]="true">
+                  </div>
+                </div>
+              </div>
+              <div [ngClass]="{'hidden': model.tpPessoa == 2}" class="fade-in-up">
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <label for="cnpj">CNPJ</label>
+                    <input type="text" name="inputCnpj" id="inputCnpj" class="form-control" [(ngModel)]="model.cnpj"
+                      mask="00.000.000/0000-00" [dropSpecialCharacters]="true" placeholder="CNPJ">
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="IE">Inscrição Estadual </label>
+                    <input type="text" id="inputIE" name="inputIE" class="form-control" placeholder="Inscrição Estadual (IE)"
+                      [(ngModel)]="model.ie" [maxlength]="20">
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <label for="IM">Inscrição Municipal</label>
+                    <input type="text" id="inputIM" name="inputIM" class="form-control" placeholder="Inscrição Municipal (IM)"
+                      [(ngModel)]="model.im" [maxlength]="20">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="inputIndIe">Indicador de Inscrição Estadual</label>
+                    <select id="inputIndIe" name="inputIndIe" class="form-control" [(ngModel)]="model.indIe">
+                      <option *ngFor="let p of listaIndIE" [value]="p.id">{{p.nome}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <label for="SUFRAMA">SUFRAMA</label>
+                    <input type="text" id="inputSUFRAMA" name="inputSUFRAMA" class="form-control" placeholder="Superintendência da Zona Franca de Manaus"
+                      [(ngModel)]="model.suframa" [maxlength]="15">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="form-group">
+                      <label for="inputOptanteSn">Optante Simples Nacional</label>
+                      <select id="inputOptanteSn" name="inputOptanteSn" class="form-control" [(ngModel)]="model.optanteSn">
+                        <option *ngFor="let p of listaOptanteSN" [value]="p.id">{{p.nome}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Fim Collapse Documentos -->
+          <!-- Inicio Collapse Endereço -->
+          <app-cliente-endereco [enderecos]="model.enderecos"></app-cliente-endereco>
+          <!-- Fim Collapse Endereço -->
+        <!-- Carrega o formulário do endereço-->
+
+          <!-- Inicio Collapse Contato  -->
+          <app-cliente-contato [contatos]="model.contatos"></app-cliente-contato>
+          <!-- Fim Collapse Contato -->
+
+          <!-- Inicio Collapse Dados Adicionais -->
+          <div id="collapseDadosAdd">
+            <a data-toggle="collapse" href="#dadosAdicionais">
+              <!--<p class="h5 m-t-15">Dados Adicionais</p>-->
+              <h5 class="text-info m-b-5 m-t-5"><i class="fa fa-bookmark-o"></i> Dados Adicionais</h5>
+            </a>
+            <hr class="my-4">
+            <div id="dadosAdicionais" class="collapse multi-collapse fade-in-up">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="inputObs">Observação</label>
+                  <textarea id="inputObs" name="inputObs" class="form-control" rows="5" [(ngModel)]="model.obs" [maxlength]="2500"></textarea>
+                </div>
+              </div>
+              <hr class="my-4">
+            </div>
+          </div>
+          <!-- Fim Collapse Dados Adicionais -->
+          <div class="text-right justify">
+            <button type="button" class="btn btn-success mr-1" (click)="onSubmit(clienteForm)" >Salvar</button>
+
+            <button type="button" class="btn btn-primary" [routerLink]="['/cliente/lista']">Voltar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END PAGE CONTENT-->
+
+<app-modal></app-modal>

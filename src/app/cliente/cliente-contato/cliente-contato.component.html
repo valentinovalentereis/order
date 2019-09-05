@@ -1,0 +1,110 @@
+<div id="collapseContato">
+  <a data-toggle="collapse" href="#contatos">
+    <!--<p class="h5 m-t-15">Contatos</p>-->
+    <h5 class="text-info m-b-5 m-t-5"><i class="fa fa-address-book-o"></i> Contatos</h5>
+  </a>
+  <hr class="my-4">
+
+  <div id="contatos" class="collapse multi-collapse fade-in-up">
+    <form #contatoForm='ngForm' (ngSubmit)="adicionar(contatoForm, model)">
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="inputTipoContato">Tipo</label>
+          <select id="inputTipoContato" name="inputTipoContato" class="form-control" [(ngModel)]="model.tpTelefone"
+            required>
+            <option *ngFor="let p of tpTipoTelefones" [value]="p.id">{{p.nome}}</option>
+          </select>
+
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputContato">Contato</label>
+          <input type="text" class="form-control" id="inputContato" name="inputContato" placeholder="Contato"
+            [minlength]="0" [maxlength]="70" [(ngModel)]="model.descricao">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputDepartamento">Departamento</label>
+          <input type="text" class="form-control" id="inputDepartamento" name="inputDepartamento" placeholder="Departamento"
+            [minlength]="0" [maxlength]="70" [(ngModel)]="model.departamento">
+        </div>
+
+        <div class="form-group col-md-1">
+          <label for="inputDDD">DDD</label>
+          <input type="tel" [minlength]="0" [maxlength]="3" class="form-control" id="inputDDD" name="inputDDD"
+            placeholder="DDD" [(ngModel)]="model.ddd">
+        </div>
+
+
+        <div class="form-group col-md-4">
+          <label for="inputTelefone">Telefone</label>
+          <input type="tel" class="form-control" id="inputTelefone" name="inputTelefone" placeholder="Telefone"
+            [minlength]="0" [maxlength]="14" [(ngModel)]="model.telefone">
+        </div>
+
+        <div class="form-group col-md-1">
+          <label for="inputRamal">Ramal</label>
+          <input type="tel" class="form-control" id="inputRamal" name="inputRamal" placeholder="Ramal" [minlength]="0"
+            [maxlength]="4" [(ngModel)]="model.ramal">
+        </div>
+
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" id="email" name="email" 
+            placeholder="E-mail" email 
+            [email]="model.email != null && model.email !==''"
+            #inputEmail="ngModel" 
+            [minlength]="0" 
+            [maxlength]="255" 
+            [required]="false" 
+            [(ngModel)]="model.email">
+          <div class="alert alert-danger" *ngIf="inputEmail.touched && !inputEmail.valid ">Digite um e-mail válido!</div>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button type="submit" [disabled]="!contatoForm.valid" class="btn btn-success">Adicionar</button>
+        <button type="button" class="btn btn-primary" (click)="novo()">Novo</button>        
+      </div>
+    </form>
+
+    <hr class="my-4">
+    <!--{{contatos|json}}-->
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered grid">
+        <thead>
+          <tr>
+            <th class="colToTelefone">Tipo</th>
+            <th class="colDescricao">Contato</th>
+            <th class="colDepartamento">Departamento</th>
+            <th class="colDDD">DDD</th>
+            <th class="colTelefone">Telefone</th>
+            <th class="colRamal">Ramal</th>
+            <th class="colEmail">E-mail</th>
+            <th class="colExcluir">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let c of contatos | filter: 'excluido' : false" onmouseover="style.backgroundColor='#FFF5EE'" onmouseout="style.backgroundColor='#ffffff'" (mouseover)= "mouseInColor='#ffffff'" style="cursor:pointer">
+            <td class="colToTelefone" (click)="editar(c)">{{ toTelefone(c.tpTelefone)}}</td>
+            <td class="colDescricao" (click)="editar(c)">{{c.descricao}}</td>
+            <td class="colDepartamento" (click)="editar(c)">{{c.departamento}}</td>
+            <td class="colDDD" (click)="editar(c)">{{c.ddd}}</td>
+            <td class="colTelefone" (click)="editar(c)">{{c.telefone}}</td>
+            <td class="colRamal" (click)="editar(c)">{{c.ramal}}</td>
+            <td class="colEmail" (click)="editar(c)">{{c.email}}</td>
+
+            <td>
+                <button (click)="remover(c)" class="btn btn-danger btn-xs"><i class="fa fa-trash" style="font-size:22px" aria-hidden="true" ></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr class="my-4">
+  </div>
+</div>
+
+<app-modal></app-modal>

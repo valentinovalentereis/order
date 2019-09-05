@@ -1,0 +1,25 @@
+@media screen and (max-width: 600px) {
+    .cabecalho{
+        font-size: 12px;
+    } 
+    .colTipo{
+        font-size: 12px;
+    } 
+    .colCEP{
+        font-size: 12px;
+        display: none;
+    } 
+    .colLogradouro{
+        font-size: 12px;
+    } 
+    .colNumero{
+        font-size: 12px;
+    } 
+	.colBairro{
+        font-size: 12px;
+        display:none;
+    }
+	.colExcluir{
+        font-size: 12px;
+    }
+}
