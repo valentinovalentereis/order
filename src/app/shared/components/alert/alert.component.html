@@ -1,0 +1,4 @@
+<div *ngFor="let alert of alerts" class="text-left {{ getAlertClass(alert) }}">
+<i class="{{ iconeMensagem }} aria-hidden=true" [ngStyle]="currentStyles"></i>
+    {{ alert.message }}
+</div>

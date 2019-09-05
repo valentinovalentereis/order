@@ -1,0 +1,14 @@
+<label for="cnpj">CNPJ</label>
+<input type="text" name="modelCnpj" id="inputCnpj" 
+  class="form-control" 
+  [cnpj]="modelCnpj" 
+  [ngModel]="modelCnpj"
+  (ngModelChange)="handleInput($event)" 
+  #cnpjInput="ngModel" 
+  mask="00.000.000/0000-00" 
+  [required]="campoObrigatorio"
+  [dropSpecialCharacters]="true" 
+  placeholder="CNPJ">
+
+<span *ngIf="(cnpjInput.errors!=null && !cnpjInput.errors?.valido) && cnpjInput.touched" class="text-danger">CNPJ
+  inválido</span>

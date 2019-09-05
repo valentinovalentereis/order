@@ -1,0 +1,19 @@
+<pagination class="paginacao"
+[itemsPerPage]="TotalPorPagina"
+[totalItems]="totalItens" 
+[rotate]="rotacao" 
+[maxSize]="maximoPagina" 
+firstText="P1" 
+previousText="<<"
+nextText=">>" 
+lastText="P9" 
+boundaryLinks="true" 
+align="true"
+(pageChanged)="pageChanged($event)">
+</pagination>
+
+
+<select id="inputTotalPorPagina" name="inputTotalPorPagina" class="page-sizes form-control" [(ngModel)]="TotalPorPagina"
+  (change)="totalPorPaginaChange(TotalPorPagina)">
+  <option *ngFor="let t of TamanhoPaginas" [value]="t.total">{{t.nome}}</option>
+</select>

@@ -1,0 +1,23 @@
+:host {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+pagination {
+    display: inline-flex;
+    width: auto;
+}
+
+#inputTotalPorPagina {
+    display: inline-flex;
+    margin-left: 10px;
+    width: auto;
+}
+
+@media screen and (max-width: 600px) {
+	.paginacao.page-sizes form-control{
+        font-size: 12px;
+    }    
+}

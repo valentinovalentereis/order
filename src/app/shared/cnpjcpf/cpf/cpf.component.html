@@ -1,0 +1,14 @@
+<label for="cpf">CPF</label>
+<input type="text" name="cpf" id="cpf" 
+  class="form-control" 
+  [cpf]="modelCpf?.value" 
+  [ngModel]="modelCpf?.value"
+  (ngModelChange)="handleInput($event)" 
+  #cpfInput="ngModel" 
+  mask="000.000.000-00" 
+  [required]="campoObrigatorio"
+  [dropSpecialCharacters]="true" 
+  placeholder="CPF">
+
+<span *ngIf="(cpfInput.errors!=null && !cpfInput.errors?.valid) && cpfInput.touched" class="text-danger">CPF
+  inválido</span>
