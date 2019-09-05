@@ -1,0 +1,35 @@
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up">
+  <!-- END PAGE CONTENT-->
+  <!--START IBOX -->
+  <div class="ibox">
+    <!-- START HEADER IBOX-->
+    <div class="ibox-head">
+      <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-industry"></i> Condição de Pagamento</h4>
+    </div>
+    <!-- END HEADER IBOX-->
+
+    <!-- START IBOX BODY-->
+    <div class="ibox-body">
+      <!-- START EMPRESA FORM-->
+      
+      <form #condicaopagamentoForm="ngForm">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCondicaoPagamento">Condição Pagamento</label>
+            <input id="inputCondicaoPagamento" name="inputCondicaoPagamento" type="text" class="form-control" placeholder="Condicao de pagamento" required [(ngModel)]="model.descricao">
+          </div>
+        </div>
+        <div class="text-right justify">
+            <button type="button" class="btn btn-success mr-1" (click)="onSubmit(condicaopagamentoForm)">Salvar</button>
+            <button type="button" class="btn btn-primary" [routerLink]="['/condicaopagamento/lista']">Voltar</button>
+          </div>
+      </form>
+
+      <!-- END CONDIÇÃO DE PAGAMENTO FORM-->
+    </div>
+    <!-- END IBOX BODY-->
+  </div>
+  <!--END IBOX -->
+</div>
+<!-- END PAGE CONTENT-->
