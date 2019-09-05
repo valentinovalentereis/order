@@ -1,0 +1,4 @@
+<div *ngFor="let mensagem of mensagens" class="text-center {{ getMensagemClass(mensagem) }}">
+    <i class="{{ iconeMensagem }} aria-hidden=true" [ngStyle]="currentStyles"></i>
+        {{ mensagem.mensagem }}
+</div>
