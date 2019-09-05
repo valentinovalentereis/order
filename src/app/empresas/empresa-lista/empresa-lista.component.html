@@ -1,0 +1,98 @@
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up">
+
+  <!-- END PAGE CONTENT-->
+  <div class="ibox">
+
+    <div class="ibox-head">
+      <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-industry"></i> Lista de Empresas</h4>
+    </div>
+    <div class="ibox-body">
+      <div class="form-inline">
+        <div class="form-group">
+          <button class="btn btn-success" [routerLink]="['/empresa']"><i class="fa fa-user-plus"></i> Novo</button>
+          <div class="btn-group p-3">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-download"></i>
+              Exportar <i class="fa fa-angle-down"></i></button>
+            <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <li>
+                <a class="dropdown-item">Excel</a>
+              </li>
+              <li>
+                <a class="dropdown-item">CSV</a>
+              </li>
+              <li>
+                <a class="dropdown-item">XML</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group-icon right">
+            <div class="input-icon"><i class="fa fa-search"></i></div>
+            <input [(ngModel)]="pesquisa" (ngModelChange)="pesquisar()" id="pesquisaInput" class="form-control" type="text"
+              placeholder="Nome, CNPJ, CPF...">
+          </div>
+        </div>
+      </div>
+      <hr class="my-1">
+
+      <ng-container *ngIf="empresas == null; else tabela ">
+        <div class="preloader-backdrop">
+          <div class="page-preloader">Carregando...</div>
+        </div>
+      </ng-container>
+      <ng-template #tabela>
+        <div class="table-responsive">
+            <!--{{ enderecos | json }} -->
+          <table class="table table-hover table-bordered grid table table-striped table table-sm">
+            <thead>
+              <tr>
+                <th class="colRazaoSocial">Nome/Razão Social</th>
+                <th class="colCPFCNPJ">CPF/CNPJ</th>
+                <th class="colNomeFantasia">Nome Fantasia</th>
+                <!--<th>Ações</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of empresas" onmouseover="style.backgroundColor='#FFF5EE'" onmouseout="style.backgroundColor='#ffffff'" (mouseover)= "mouseInColor='#ffffff'" style="cursor:pointer">
+                <td class="colRazaoSocial" [routerLink]="['/empresa', c.id]">{{c.razaoSocial}}</td>
+                <td class="colCPFCNPJ" scope="row" [routerLink]="['/empresa', c.id]">{{c.documento | mask: c.tpEmpresa==1 ? '00.000.000/0000-00': '000.000.000-00' }}</td>
+                <td class="colNomeFantasia" [routerLink]="['/empresa', c.id]">{{c.fantasia}}</td>
+              </tr>
+            </tbody>
+            </table>
+            <app-paginacao [totalItens]="totalItens" [TotalPorPagina]="totalPorPagina" (trocaDePagina)="trocaDePagina($event)"
+            (trocaDeTotalPorPagina)="trocaDeTotalPorPagina($event)"></app-paginacao>
+          </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+        <!--{{ empresas | json }} -->
+        <!--
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered grid">
+            <thead>
+              <tr>
+                <th class="col-5">Nome/Razão Social</th>
+                <th class="col-4">CPF/CNPJ</th>
+                <th class="col-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of empresas">
+                <td>{{c.razaoSocial.substring(1,30)}}</td>
+                <td scope="row">{{c.documento | mask: c.tpEmpresa==1 ? '00.000.000/0000-00': '000.000.000-00' }}</td>
+                <td class="col-md-2">
+                  <button [routerLink]="['/empresa', c.id]" class="btn btn-primary btn-xs m-r-5" data-toggle="tooltip"
+                    data-original-title="Editar"><i class="fa fa-pencil font-1"></i></button>
+                  <button [routerLink]="['/empresa', c.id]" class="btn btn-warning btn-xs" data-toggle="tooltip"
+                    data-original-title="Visualizar"><i class="fa fa-eye font-14"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <app-paginacao [totalItens]="totalItens" [TotalPorPagina]="totalPorPagina" (trocaDePagina)="trocaDePagina($event)"
+            (trocaDeTotalPorPagina)="trocaDeTotalPorPagina($event)"></app-paginacao>
+        </div> -->

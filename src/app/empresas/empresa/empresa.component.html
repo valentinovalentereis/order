@@ -1,0 +1,95 @@
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up">
+  <!-- END PAGE CONTENT-->
+  <!--START IBOX -->
+  <div class="ibox">
+    <!-- START HEADER IBOX-->
+    <div class="ibox-head">
+      <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-industry"></i> Cadastro de Empresas</h4>
+    </div>
+    <!-- END HEADER IBOX-->
+
+    <!-- START IBOX BODY-->
+    <div class="ibox-body">
+      <app-validacao-lista></app-validacao-lista>
+      <!-- START EMPRESA FORM-->
+      <form #empresaForm="ngForm">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inputTpEmpresa">Pessoa</label>
+            <select id="inputTpEmpresa" #inputPessoa name="inputTpEmpresa" class="form-control" [(ngModel)]="model.tpEmpresa"
+              required>
+              <option *ngFor="let p of tpsEmpresa" [value]="p.id">{{p.nome}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!--{{model | json}}-->
+          <div class="form-group col-md-6">
+            <label for="inputRazaoSocial">{{model.tpEmpresa==1? "Razão Social*" :"Nome*"}}</label>
+            <input id="inputRazaoSocial" name="inputRazaoSocial" type="text" class="form-control" [placeholder]="model.tpEmpresa==1? 'Razão Social' :'Nome'"
+              [(ngModel)]="model.razaoSocial" required [maxlength]="70">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputFantasia">{{model.tpEmpresa==1? "Fantasia*" :"Apelido"}}</label>
+            <input id="inputFantasia" name="inputFantasia" type="text" class="form-control" [placeholder]="model.tpEmpresa==1? 'Fantasia' :'Apelido'"
+              [(ngModel)]="model.fantasia" [maxlength]="50">
+          </div>
+        </div>
+
+        <!--START DOCUMENTACAO-->
+        <div>
+          <a href="javascript:void(0)" (click)="isCollapsedDoc = !isCollapsedDoc" [attr.aria-expanded]="!isCollapsedDoc"
+            aria-controls="documentacao">
+            <!--<p class=" h5 m-t-15 ">Documentação</p>-->
+            <h5 class="text-info m-b-5 m-t-5"><i class="fa fa-drivers-license-o"></i> Documentação</h5>
+          </a>
+          <div id="documentacao" [collapse]="isCollapsedDoc">
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="inputNroDocumento">{{model.tpEmpresa==1? "CNPJ*" : "CPF*"}}</label>
+                <input type="text" name="inputNroDocumento" id="inputNroDocumento" class="form-control" [(ngModel)]="model.documento" placeholder="{{model.tpEmpresa==1 ? 'CNPJ' : 'CPF'}}" [maxlength]="30">
+                <!-- REMOVI A MASCARA PORQUE ESTÁ DANDO PROBLEMA NA CARGA DO CPF NO CAMPO INPUT VEM ZERADO QUANDO COLOCA A MASCARA
+                     TEM QUE VER DEPOIS PORQUE NÃO ESTÁ FUNCIONANDO....
+                     FUNCIONA SO PARA O CNPJ
+                
+                     mask="{{model.tpEmpresa==1 ? '00.000.000/0000-00' : '000.000.000-00'}}" [dropSpecialCharacters]="true"
+                -->
+              </div>
+              <div [ngClass]="{'hidden': model.tpEmpresa == 2}" class="form-group col-md-3">
+                <label for="IE">I.Estadual </label>
+                <input type="text" id="inputIE" name="inputIE" class="form-control" placeholder="Inscrição Estadual (IE)"
+                  [(ngModel)]="model.ie" [maxlength]="30">
+              </div>
+
+              <div [ngClass]="{'hidden': model.tpEmpresa == 2}" class="form-group col-md-3">
+                <label for="IM">I.Municipal</label>
+                <input type="text" id="inputIM" name="inputIM" class="form-control" placeholder="Inscrição Municipal (IM)"
+                  [(ngModel)]="model.im" [maxlength]="20">
+
+              </div>
+              <div [ngClass]="{'hidden': model.tpEmpresa == 2}" class="form-group col-md-3">
+                <label for="SUFRAMA">SUFRAMA</label>
+                <input type="text" id="inputSUFRAMA" name="inputSUFRAMA" class="form-control" placeholder="Superintendência da Zona Franca de Manaus"
+                  [(ngModel)]="model.suframa" [maxlength]="15">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--END DOCUMENTACAO-->
+        <!-- Carrega o formulário do endereço-->
+        <app-empresa-endereco [enderecos]="model.enderecos"></app-empresa-endereco>
+        <div class="text-right justify">
+          <button type="button" class="btn btn-success mr-1" (click)="onSubmit(empresaForm)">Salvar</button>
+
+          <button type="button" class="btn btn-primary" [routerLink]="['/empresa/lista']">Voltar</button>
+        </div>
+      </form>
+      <!-- END EMPRESA FORM-->
+    </div>
+    <!-- END IBOX BODY-->
+  </div>
+  <!--END IBOX -->
+</div>
+<!-- END PAGE CONTENT-->

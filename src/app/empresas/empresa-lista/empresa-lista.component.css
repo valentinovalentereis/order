@@ -1,0 +1,12 @@
+@media screen and (max-width: 600px) {
+    .colRazaoSocial{
+        font-size: 12px;
+    } 
+    .colCPFCNPJ{
+        font-size: 12px;
+    } 
+    .colNomeFantasia{
+        font-size: 12px;
+        display: none;
+    } 
+}
