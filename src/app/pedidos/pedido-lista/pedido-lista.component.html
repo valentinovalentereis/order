@@ -1,0 +1,77 @@
+<!-- START PAGE CONTENT-->
+<div class="page-content fade-in-up">
+
+  <!-- END PAGE CONTENT-->
+  <div class="ibox">
+    <div class="ibox-head">
+      <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-shopping-cart"></i> Lista de Order</h4>
+    </div>
+    <div class="ibox-body">
+      <app-validacao-lista></app-validacao-lista>
+      <div class="form-inline">
+        <div class="form-group">
+          <button class="btn btn-success" [routerLink]="['/pedido']"><i class="fa fa-user-plus"></i> Novo</button>
+          <div class="btn-group p-3">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-download"></i>
+              Exportar <i class="fa fa-angle-down"></i></button>
+            <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <li>
+                <a class="dropdown-item">Excel</a>
+              </li>
+              <li>
+                <a class="dropdown-item">CSV</a>
+              </li>
+              <li>
+                <a class="dropdown-item">XML</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group-icon right">
+            <div class="input-icon"><i class="fa fa-search"></i></div>
+            <input [(ngModel)]="pesquisa" (ngModelChange)="pesquisar()" id="pesquisaInput" class="form-control" type="text"
+              placeholder="Nome comprador...">
+          </div>
+        </div>
+      </div>
+      <hr class="my-1">
+
+      <ng-container *ngIf="Order == null; else tabela ">
+        <div class="preloader-backdrop">
+          <div class="page-preloader">Carregando...</div>
+        </div>
+      </ng-container>
+      <ng-template #tabela>
+        <div class="table-responsive">
+            <!--{{ enderecos | json }} -->
+          <table class="table table-hover table-bordered grid table table-striped table table-sm">
+            <thead>
+              <tr>
+                <th class="colNroPedido">Nro Pedido</th>
+                <th class="colDataPedido">Data Pedido</th>
+                <th class="colCliente">Cliente</th>
+                <th class="colComprador">Nome Comprador</th>
+                <th class="colStatus">Status</th>
+                <!--<th class="colAcoes">Ações</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of Order" onmouseover="style.backgroundColor='#FFF5EE'" onmouseout="style.backgroundColor='#ffffff'" (mouseover)= "mouseInColor='#ffffff'" style="cursor:pointer"> 
+                <td class="colNroPedido" style=text-align:right [routerLink]="['/pedido', c.id]">{{c.id}}</td>
+                <td class="colDataPedido" style=text-align:center [routerLink]="['/pedido', c.id]">{{c.dhEmissao | date:'dd/MM/yyyy'}}</td>
+                <td class="colCliente" [routerLink]="['/pedido', c.id]">{{c.nomeCliente}}</td>
+                <td class="colComprador" [routerLink]="['/pedido', c.id]">{{c.nomeComprador}}</td>
+
+                <td class="colStatus" style=text-align:center style.backgroundColor={{mouseInColor}} style="cursor:default"><label class="badge " [ngClass]="{'badge-primary': c.idStatus==0, 'badge-success': c.idStatus==1,'badge-danger':c.idStatus==2}">{{c.statusPedido}}</label></td>
+              </tr>
+            </tbody>
+            </table>
+            <app-paginacao [totalItens]="totalItens" [TotalPorPagina]="totalPorPagina" (trocaDePagina)="trocaDePagina($event)"
+            (trocaDeTotalPorPagina)="trocaDeTotalPorPagina($event)"></app-paginacao>
+          </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<app-modal></app-modal>

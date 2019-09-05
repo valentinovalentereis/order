@@ -1,0 +1,25 @@
+@media screen and (max-width: 600px) {
+    .cabecalho{
+        font-size: 12px;
+    } 
+    .colItemProduto{
+        font-size: 12px;
+        width: 70%;
+    } 
+    .colQtde{
+        font-size: 12px;
+    } 
+    .colValorUnitario{
+        font-size: 12px;
+        display: none;
+    } 
+    .colValorDesconto{
+        font-size: 12px;
+    } 
+	.colValorTotal{
+        font-size: 12px;
+    }
+	.colExcluir{
+        font-size: 12px;
+    }    
+}

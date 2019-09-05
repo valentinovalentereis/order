@@ -1,0 +1,143 @@
+<h5 id="infoproduto" class="text-info m-b-10 m-t-10"><i class="fa fa-tags"></i> Informações do Produto</h5>
+<form #itemPedidoForm="ngForm" autocomplete="off">
+    <!-- (ngSubmit)="adicionar(itemPedidoForm, modelPedidoItem);b(' Adicionar')"-->
+    <div class="form-row">
+        <!--{{ modelPedidoItem | json }} -->
+        <div class="form-group col-md-12">
+            <label for="inputProduto">Produto</label>
+            <div class="input-icon"></div>
+
+            <input id="inputNomeProduto" name="inputNomeProduto" type="text" [maxlength]="70" class="form-control" [(ngModel)]= "modelPedidoItem.descricao" required [disabled]="true" [hidden]="modelPedidoItem.guid != null">
+
+            <ng-select id="inputProduto" name="inputProduto"
+            notFoundText="Nenhum produto encontrado"
+            [closeOnSelect]="true" 
+            [items]="produtos"
+            bindValue="idProduto" 
+            bindLabel="descricao"
+            [(ngModel)]="modelPedidoItem.idProduto"
+            clearAllText="Limpar"
+            selectOnTab="true"
+            virtualScroll="true"
+            [loading] = "loadingOnOff"
+            loadingText = "Carregando Produtos..."
+            (search)="pesquisarProduto($event)"
+            (change)="posicionaItemProduto($event)"
+            [disabled]="[idStatusPedido] > 0 || modelPedidoItem.guid == null"
+            [hidden]="modelPedidoItem.guid == null">
+
+            <!--[idStatusPedido] > 0 || modelPedidoItem.guid == null-->
+            <ng-template ng-option-tmp let-item="item">
+                <i class="fa fa-tag" style="font-size:18px; color:red"></i> Produto: {{item.descricao}} <br />
+                        Valor Unitário: {{item.valorUnitario}} <br />
+                        Unidade: {{item.unidMedida}} - {{item.descricaoUnidMed}}
+              </ng-template>
+            </ng-select>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="inputQtdePedido">Qtde</label>
+            <input currencyMask [options]="{ precision: [decimals] }" [(ngModel)]="modelPedidoItem.qtde" [ngModelOptions]="{standalone: true}" id="inputQtdePedido" (ngModelChange) = "calculaValorItem()" name="inputQtdePedido" type="tel" ng-model="inputQtdePedido" class="form-control input-sm" placeholder="Qtde" style="text-align:right" [required]="true" [disabled]="[idStatusPedido] > 0" (keypress)="keyPress($event)" autocomplete="off"/>
+        </div>
+        <div class="form-group col-sm-1">
+            <label for="inputPrecoUnitario">Und</label>
+            <input currencyMask [(ngModel)]="modelPedidoItem.UnidMedida" [ngModelOptions]="{standalone: true}" name = "inputUnidMedida" id="inputUnidMedida" type="text" [(value)]="unidadeMedida" class="form-control input-sm" placeholder="Und" style="text-align:right" [disabled]="true" />
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="inputPrecoUnitario">Preço</label>
+            <input currencyMask [(ngModel)]="modelPedidoItem.valorUnitario" [ngModelOptions]="{standalone: true}" name = "inputPrecoUnitario" id="inputPrecoUnitario" type="text" [(value)]="valorUnitario" class="form-control input-sm" placeholder="Preço" style="text-align:right" [disabled]="true"/>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="inputDescontoPerc">Desc (%)</label>
+            <input currencyMask [(ngModel)]="modelPedidoItem.PercDesconto" [ngModelOptions]="{standalone: true}" onfocusout="this.value=null" name = "inputDescontoPerc" (ngModelChange) = "calculaPorcentualDesconto()" id="inputDescontoPerc" class="form-control input-sm" type="tel" [(value)]="valorPercentualDesconto"  placeholder="Desconto" style="text-align:right" [disabled]="[idStatusPedido]  > 0" autocomplete="off"/>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="inputDescontoFixo">Desc ($)</label>
+            <input currencyMask [(ngModel)]="modelPedidoItem.valorDesconto" [ngModelOptions]="{standalone: true}" name = "inputDescontoFixo" (ngModelChange) = "calculaDescontoFixo()" id="inputDescontoFixo" class="form-control input-sm" type="tel" [(value)]="valorDescontoCalculado" placeholder="Desconto" style="text-align:right" [disabled]="[idStatusPedido] > 0" autocomplete="off"/>
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="inputValorTotal">Total</label>
+            <input currencyMask [(ngModel)]="modelPedidoItem.ValorItem" [ngModelOptions]="{standalone: true}" name = "inputValorTotal" id="inputValorTotal" class="form-control input-sm" disabled type="text" [(value)]="valorTotalItem" placeholder="Total" style="text-align:right"/>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="inputObservacoes">Observações no item:</label>
+            <input class="form-control input-sm" [maxlength]="2500" rows="2" id="inputObservacoes" [(ngModel)]="modelPedidoItem.observacao" [ngModelOptions]="{standalone: true}" type="text" [disabled]="[idStatusPedido] > 0"/>
+        </div>
+    </div>
+    <div class="text-right">
+     <!--[disabled]="!itemPedidoForm.valid" -->   
+    <!--<button type="submit" class="btn btn-outline-success" (click)="adicionar(itemPedidoForm, modelPedidoItem);b(' Adicionar na Lista','fa fa-plus-square')" [hidden]="[idStatusPedido] > 0"><i class={{btnFaFaProduto}} style="font-size:18px;color:green" aria-hidden="true"></i>{{btnProduto}}</button>-->
+    <ap-mensagem></ap-mensagem>
+    <button type="submit" class="btn btn-outline-success" (click)="adicionar(modelPedidoItem);b(' Adicionar na Lista','fa fa-shopping-cart')" [hidden]="[idStatusPedido] > 0"><i class={{btnFaFaProduto}} style="font-size:18px;color:green" aria-hidden="true"></i>{{btnProduto}}</button>
+    <button type="button" class="btn btn-outline-primary" [hidden]="[idStatusPedido] > 0" (click)="novo()" ><i class="fa fa-plus-square"></i> Novo</button>
+    <!--TIREI O TOOLTIP PORQUE NO APARELHO MÓVEL DA PROBLEMA data-toggle="tooltip" data-original-title="Novo" title="Criar novo Item"-->
+    </div>
+</form>
+<div class="panel panel-success">
+    <h5 class="text-info m-b-20 m-t-20"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Produtos Selecionados</h5>
+    <div class="panel-body">
+        <!--{{ enderecos | json }}-->
+        <h3>Custom easing</h3>
+  <p>You may specify a custom easing function to manipulate the scroll position over time. This example uses an <i>easeInOutExpo</i>
+    function.</p>
+  <button mat-raised-button color="primary" href="#head7" pageScroll [pageScrollEasing]="myEasing"
+          id="customEasingButton">
+    Start
+  </button>
+  <button mat-raised-button color="primary" href="#head7" pageScroll [pageScrollDuration]="5000"
+          [pageScrollEasing]="myEasing">
+    Start slow version
+</button>
+        <div class="table-responsive">            
+            <table class="table table-hover table-bordered grid table table-striped table table-sm">
+                <thead>
+                    <th class="colItemProduto">Produto</th>
+                    <th class="colQtde">Qtde</th>
+                    <th class="colValorUnitario">Unitário</th>
+                    <th class="colValorDesconto">Desconto</th>
+                    <th class="colValorTotal">Total</th>
+                    <th class="colExcluir" [hidden]="[idStatusPedido] > 0">Excluir</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of itemPedido | filter: 'excluido' : false" onmouseover="style.backgroundColor='#FFF5EE'" onmouseout="style.backgroundColor='#ffffff'" (mouseover)= "mouseInColor='#ffffff'" style="cursor:pointer">
+
+                        <!--(click)="OqueFazer(c)"
+                        <td class="colItemProduto" (click)="editar(c);posicionaItemProduto(c)">{{c.descricao }}</td>
+                        <td class="colQtde" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{c.qtde | currency:[fCurrency]}}</td>
+                        <td class="colValorUnitario" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{c.valorUnitario  | currency:[fCurrency]}}</td>
+                        <td class="colValorDesconto" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{ c.valorDesconto | currency:[fCurrency]}}</td>
+                        <td class="colTotal" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{((c.valorUnitario*c.qtde)-c.valorDesconto) | currency:[fCurrency]}}</td>
+                        -->
+                        <td class="colItemProduto" (click)="editar(c);posicionaItemProduto(c)">{{c.descricao }}</td>
+                        <td class="colQtde" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{c.qtde | currency:[fCurrency]}}</td>
+                        <td class="colValorUnitario" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{c.valorUnitario  | currency:[fCurrency]}}</td>
+                        <td class="colValorDesconto" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{ c.valorDesconto | currency:[fCurrency]}}</td>
+                        <td class="colValorTotal" style=text-align:right (click)="editar(c);posicionaItemProduto(c)">{{((c.valorUnitario*c.qtde)-c.valorDesconto) | currency:[fCurrency]}}</td>
+                        
+                        <td [hidden]="[idStatusPedido] > 0">
+                            <button (click)="remover(c)" class="btn btn-danger btn-xs" 
+                            ><i class="fa fa-trash" style="font-size:22px" aria-hidden="true" ></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--https://ng-bootstrap.github.io/#/components/modal/examples-->
+<ng-template #content #model let-c="close" let-d="dismiss">
+    <div class="modal-content">
+        <div class="modal-header bg-warning">
+            <h5 class="modal-title"><i class="fa fa-question-circle pull-left" style="font-size:30px;color:white;"></i>Cancelamento do pedido </h5>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>            
+        </div>
+        <div class="modal-body">
+            <b>Confirma o cancelamento do pedido?</b>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="cc('Save click')">Sim</button>        <button type="submit" class="btn btn-primary" (click)="d('Cross click')">Não</button>
+        </div>
+    </div>
+  </ng-template>
+<app-modal></app-modal>

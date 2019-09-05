@@ -1,0 +1,62 @@
+<!--{{ modelPedidoEntrega | json}}-->
+<form #entregaPedidoForm="ngForm" autocomplete="off" >
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputCEP">CEP</label>
+      <input type="tel" class="form-control" id="inputCEP" name="inputCEP" placeholder="CEP" [minlength]="0" mask="00000-000" (blur)="consultarCEP(modelPedidoEntrega.cep)" onclick="this.select()" onfocus="this.select()" [dropSpecialCharacters]="true" [(ngModel)]="modelPedidoEntrega.cep" [disabled]="[idStatusPedido] > 0" >
+    </div>
+
+    <div class="form-group col-md-7">
+      <label for="inputLogradouro">Logradouro</label>
+      <input type="text" class="form-control" id="inputLogradouro" name="inputLogradouro" placeholder="Logradouro" [minlength]="0" [maxlength]="70" [(ngModel)]="modelPedidoEntrega.logradouro" required [disabled]="[idStatusPedido] > 0">
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="inputNumero">Número</label>
+      <input type="tel" class="form-control" id="inputNumero" name="inputNumero" placeholder="Número" [minlength]="0"
+        [maxlength]="10" [(ngModel)]="modelPedidoEntrega.numero" [disabled]="[idStatusPedido] > 0">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputComplemento">Complemento</label>
+      <input type="text" class="form-control" id="inputComplemento" name="inputComplemento" placeholder="Complemento"
+        [minlength]="0" [maxlength]="20" [(ngModel)]="modelPedidoEntrega.complemento" [disabled]="[idStatusPedido] > 0">
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="inputBairro">Bairro</label>
+      <input type="text" class="form-control" id="inputBairro" name="inputBairro" placeholder="Bairro" [(ngModel)]="modelPedidoEntrega.bairro"
+        [minlength]="0" [maxlength]="50" [disabled]="[idStatusPedido] > 0">
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="inputPais">País</label>
+      <select id="inputPais" name="inputPais" class="form-control" (change) ="carregarComboEstCid(1)" [(ngModel)]="modelPedidoEntrega.idPais" required [disabled]="[idStatusPedido] > 0">
+        <option *ngFor="let p of lisPaises" [value]="p.id">{{p.descricao}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="inputEstado">UF</label>
+      <select id="inputEstado" name="inputEstado" class="form-control" (change)="carregarComboEstCid(2)" [(ngModel)]="modelPedidoEntrega.idEstado" required [disabled]="[idStatusPedido] > 0">
+        <option *ngFor="let p of lisEstados" [value]="p.id">{{p.sigla}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-3">
+      <label for="inputCidade">Cidade</label>
+      <select id="inputCidade" name="inputCidade" class="form-control" [(ngModel)]="modelPedidoEntrega.idCidade" required [disabled]="[idStatusPedido] > 0">
+        <option *ngFor="let p of lisCidades" [value]="p.id">{{p.descricao}}</option>
+      </select>
+    </div>
+    <!-- ESTE CAMPO AINDA NÃO ESTÁ IMPLEMENTADO NA CLASSE
+         FALTA CRIAR NA ESTRUTURA DA WEB API
+    -->
+    <div class="form-group col-md-8">
+      <label for="inputReferencia">Ponto Referência</label>
+      <input type="text" class="form-control" id="inputReferencia" name="inputReferencia" placeholder="Ponto de referência"[minlength]="0" [maxlength]="2500" [(ngModel)]="modelPedidoEntrega.ptoReferencia" [disabled]="[idStatusPedido] > 0">
+    </div>
+  </div>
+</form>

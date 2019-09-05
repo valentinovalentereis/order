@@ -1,0 +1,22 @@
+@media screen and (max-width: 600px) {
+    .colDataPedido{
+        font-size: 10px;
+    } 
+    .colCliente{
+        font-size: 10px;
+    } 
+    .colStatus{
+        font-size: 10px;
+    } 
+    .colAcoes{
+        font-size: 10px;
+        display: none;
+    } 
+	.colComprador{
+		display: none;
+    }
+	.colNroPedido{
+		display: none;
+	}
+    
+}
