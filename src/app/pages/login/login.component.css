@@ -1,0 +1,125 @@
+.login-page
+{
+    background-image: url('../../../assets/img/body/1.jpg');
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: #999;
+    height: 100vh; 
+    width: 100%;     
+}
+.brand {
+    font-size: 44px;
+    text-align: center;
+    margin: 0 0;
+}
+
+.content {
+	max-width: 300px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%)
+}
+.content form {
+	padding: 15px 20px 20px 20px;
+    background-color: #212c43;
+    filter: alpha(opacity=85);
+    filter: progid: DXImageTransform.Microsoft.Alpha(opacity=85);
+    -moz-opacity: 0.85;
+    opacity: 0.85;
+    zoom: 1;
+    
+}
+.login-header {margin:10px 0 20px 0;}
+.login-img {
+	display: inline-block;
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    line-height: 56px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid #6bd6db;
+    font-size: 28px;
+    color: #2CC4CB;
+}
+.login-header a{
+	width: 50%;
+	text-align: center;
+	color: #fff;
+	padding: 12px 0;
+	background-color: #c7cccf;
+}
+.login-header a.active {
+    background-color: #fff;
+    color: inherit;
+}
+.login-title {
+	margin-bottom: 25px;
+	margin-top: 20px;
+    text-align: center;
+    color: #3095db;
+}
+.social-auth-hr {
+	text-align: center;
+	height: 10px;
+    margin-bottom: 21px;
+    border-bottom: 1px solid transparent;
+    color:white;
+}
+.social-auth-hr span {
+	background: transparent;
+    padding: 0 10px;
+}
+.login-footer {
+	padding: 15px;
+	background-color: #ebedee;
+	text-align: center;
+}
+/*iPhone 6
+ Landscape 
+*/
+@media only screen 
+    and (min-device-width : 375px) /* or 213.4375em or 3in or 9cm*/
+    and (max-device-width : 667px) /* or 41.6875em*/
+    and (width : 667px) /* or 41.6875em*/
+    and (height : 375px) /* or 23.4375em*/
+    and (orientation : landscape) 
+    and (color : 8)
+    and (device-aspect-ratio : 375/667)
+    and (aspect-ratio : 667/375)
+    and (device-pixel-ratio : 2)
+    and (-webkit-min-device-pixel-ratio : 2)
+{ 
+    .img-thumbnail-img-responsive {
+        display:none;
+    } 
+}
+
+/*iPhone 6
+ Portrait 
+*/
+@media only screen 
+    and (min-device-width : 375px) /*or 213.4375em*/
+    and (max-device-width : 667px) /*or 41.6875em*/
+    and (width : 375px) /* or 23.4375em*/
+    and (height : 559px) /* or 34.9375em*/
+    and (orientation : portrait) 
+    and (color : 8)
+    and (device-aspect-ratio : 375/667)
+    and (aspect-ratio : 375/559)
+    and (device-pixel-ratio : 2)
+    and (-webkit-min-device-pixel-ratio : 2)
+{ }
+/*iPhone 6+
+ Landscape 
+*/
+@media only screen 
+    and (min-device-width : 414px) 
+    and (max-device-width : 736px) 
+    and (orientation : landscape) 
+    and (-webkit-min-device-pixel-ratio : 3) 
+{ }
